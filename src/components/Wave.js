@@ -10,10 +10,10 @@ import raw from 'raw.macro';
 const fragment = raw('../shader/fragment.glsl');
 const vertex = raw('../shader/vertex.glsl');
 
-// var glslify = require('glslify');
+var glslify = require('glslify');
 
-// const a = glslify(vertex);
-// const b = glslify(fragment);
+const vertexTest = glslify(vertex);
+const fragmentTest = glslify(fragment);
 
 const WaveShaderMaterial = new THREE.ShaderMaterial({
     uniforms: {
@@ -38,8 +38,8 @@ const Wave = () => {
             <planeBufferGeometry args={[0.4, 0.6, 16, 16]} />
             {/* <waveShaderMaterial uColor={'hotpink'} ref={ref} uTexture={image} /> */}
             <shaderMaterial
-                vertexShader={vertex}
-                fragmentShader={fragment}
+                vertexShader={vertexTest}
+                fragmentShader={fragmentTest}
                 uniforms={{
                     uTime: 0,
                     uColor: new THREE.Color(0.0, 0.0, 0.0),

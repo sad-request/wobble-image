@@ -5,7 +5,7 @@ varying float vWave;
 
 uniform float uTime;
 
-// #pragma glslify: snoise3 = require(glsl-noise/simplex/3d);
+#pragma glslify: snoise3 = require(glsl-noise/simplex/3d);
 
 void main() {
   vUv = uv;
@@ -14,7 +14,7 @@ void main() {
   float noiseFreq = 2.1;
   float noiseAmp = 0.3;
   vec3 noisePos = vec3(pos.x * noiseFreq + uTime, pos.y, pos.z);
-  // pos.z += snoise3(noisePos) * noiseAmp;
+  pos.z += snoise3(noisePos) * noiseAmp;
   vWave = pos.z;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);  
