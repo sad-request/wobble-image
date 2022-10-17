@@ -3,19 +3,24 @@ import { extend, useFrame, useLoader } from '@react-three/fiber';
 // import glsl from 'babel-plugin-glsl/macro';
 import * as THREE from 'three';
 import { useRef } from 'react';
-import vertex from '../shader/vertex.glsl';
-import fragment from '../shader/fragment.glsl';
+import raw from 'raw.macro';
+import glslify from 'glslify';
+// import vertex from '../shader/vertex.glsl';
+// import fragment from '../shader/fragment.glsl';
+
+const fragment = raw('../shader/fragment.glsl');
+const vertex = raw('../shader/vertex.glsl');
 
 // const glsl = require('babel-plugin-glsl/macro');
 
-const WaveShaderMaterial = shaderMaterial({
-    vertexShader: { vertex },
-    fragmentShader: { fragment },
+const WaveShaderMaterial = new THREE.ShaderMaterial({
     uniforms: {
         uTime: 0,
         uColor: new THREE.Color(0.0, 0.0, 0.0),
         uTexture: new THREE.Texture(),
     },
+    vertexShader: { vertex },
+    fragmentShader: { fragment },
 });
 
 extend({ WaveShaderMaterial });
@@ -29,8 +34,8 @@ const Wave = () => {
     return (
         <mesh>
             <planeBufferGeometry args={[0.4, 0.6, 16, 16]} />
-            <waveShaderMaterial uColor={'hotpink'} ref={ref} uTexture={image} />
-            {/* <shaderMaterial
+            {/* <waveShaderMaterial uColor={'hotpink'} ref={ref} uTexture={image} /> */}
+            <shaderMaterial
                 vertexShader={vertex}
                 fragmentShader={fragment}
                 uniforms={{
@@ -41,7 +46,7 @@ const Wave = () => {
                 uColor={'hotpink'}
                 ref={ref}
                 uTexture={image}
-            /> */}
+            />
         </mesh>
     );
 };
