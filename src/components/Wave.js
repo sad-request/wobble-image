@@ -1,17 +1,19 @@
 import { shaderMaterial } from '@react-three/drei';
 import { extend, useFrame, useLoader } from '@react-three/fiber';
-// import glsl from 'babel-plugin-glsl/macro';
+import glsl from 'babel-plugin-glsl/macro';
 import * as THREE from 'three';
 import { useRef } from 'react';
 import raw from 'raw.macro';
-import glslify from 'glslify';
 // import vertex from '../shader/vertex.glsl';
 // import fragment from '../shader/fragment.glsl';
 
 const fragment = raw('../shader/fragment.glsl');
 const vertex = raw('../shader/vertex.glsl');
 
-// const glsl = require('babel-plugin-glsl/macro');
+// var glslify = require('glslify');
+
+// const a = glslify(vertex);
+// const b = glslify(fragment);
 
 const WaveShaderMaterial = new THREE.ShaderMaterial({
     uniforms: {

@@ -24,6 +24,13 @@ module.exports = {
             },
         ],
     },
+    rules: [
+        {
+            test: /\.(glsl|vs|fs|vert|frag)$/,
+            exclude: /node_modules/,
+            use: ['raw-loader', 'glslify-loader'],
+        },
+    ],
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'src', 'index.html'),
