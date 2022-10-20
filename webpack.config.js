@@ -1,39 +1,47 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
-    entry: path.join(__dirname, 'src', 'index.js'),
+    mode: 'development',
+    entry: path.join(__dirname, 'src', 'index.tsx'),
     output: {
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    experimental: {
-        swcPlugins: [
-            [
-                'raw.macro/swc',
-                {
-                    rootDir: __dirname,
-                },
-            ],
-        ],
-    },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.glsl$/,
+                exclude: /node_modules/,
                 loader: 'webpack-glsl',
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.(ts|js)x?$/,
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        '@babel/preset-env',
+                        '@babel/preset-react',
+                        '@babel/preset-typescript',
+                    ],
+                },
+                exclude: /node_modules/,
             },
         ],
     },
-    rules: [
-        {
-            test: /\.(glsl|vs|fs|vert|frag)$/,
-            exclude: /node_modules/,
-            use: ['raw-loader', 'glslify-loader'],
-        },
-    ],
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+    },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src', 'index.html'),
+            template: path.join(__dirname, 'public', 'index.html'),
         }),
+        new NodePolyfillPlugin(),
     ],
 };

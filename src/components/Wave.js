@@ -38,11 +38,7 @@ const Wave = () => {
         <mesh>
             <planeGeometry args={[0.4, 0.6, 16, 16]} />
             {/* <waveShaderMaterial uColor={'hotpink'} ref={ref} uTexture={image} /> */}
-            {/* <meshStandardMaterial
-                uColor={'hotpink'}
-                ref={ref}
-                uTexture={image}
-            /> */}
+            {/* <meshStandardMaterial color={'#fff'} ref={ref} /> */}
             <shaderMaterial
                 vertexShader={vertexTest}
                 fragmentShader={fragmentTest}
