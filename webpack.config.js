@@ -9,39 +9,32 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
+    resolve: {
+        // Add `.ts` and `.tsx` as a resolvable extension.
+        extensions: ['.ts', '.tsx', '.js'],
+    },
     module: {
         rules: [
             {
-                test: /\.glsl$/,
+                test: /\.tsx?$/,
+                use: 'ts-loader',
                 exclude: /node_modules/,
-                loader: 'webpack-glsl',
+            },
+            {
+                test: /\.glsl$/,
+                use: 'ts-shader-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
                 exclude: /node_modules/,
             },
-            {
-                test: /\.(ts|js)x?$/,
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        '@babel/preset-env',
-                        '@babel/preset-react',
-                        '@babel/preset-typescript',
-                    ],
-                },
-                exclude: /node_modules/,
-            },
         ],
     },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
-    },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'public', 'index.html'),
-        }),
+        new HtmlWebpackPlugin({ template: './public/index.html' }),
         new NodePolyfillPlugin(),
     ],
+    devtool: 'inline-source-map',
 };
