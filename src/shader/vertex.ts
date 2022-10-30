@@ -1,3 +1,6 @@
+import glsl from 'babel-plugin-glsl/macro';
+
+const vertex = glsl`
 precision mediump float;
 
 varying vec2 vUv;
@@ -20,3 +23,6 @@ void main() {
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);  
 
 }
+`;
+
+export default vertex;

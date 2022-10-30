@@ -1,3 +1,6 @@
+import glsl from 'babel-plugin-glsl/macro';
+
+const fragment = glsl`
 precision mediump float;
 
 uniform vec3 uColor;
@@ -12,3 +15,5 @@ void main() {
     vec3 texture = texture2D(uTexture, vUv + wave).rgb;
   gl_FragColor = vec4(texture, 1.0);
 }
+`;
+export default fragment;
