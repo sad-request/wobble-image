@@ -3,16 +3,17 @@ import * as THREE from 'three';
 import { useRef } from 'react';
 import vertex from '../shader/vertex';
 import fragment from '../shader/fragment';
+import { shaderMaterial } from '@react-three/drei';
 
-const WaveShaderMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-        uTime: { value: 0 },
-        uColor: { value: new THREE.Color(0.0, 0.0, 0.0) },
-        uTexture: { value: new THREE.Texture() },
+const WaveShaderMaterial = shaderMaterial(
+    {
+        uTime: 0,
+        uColor: new THREE.Color(0.0, 0.0, 0.0),
+        uTexture: new THREE.Texture(),
     },
-    vertexShader: vertex,
-    fragmentShader: fragment,
-});
+    vertex,
+    fragment
+);
 
 extend({ WaveShaderMaterial });
 
@@ -28,7 +29,8 @@ const Wave = () => {
     return (
         <mesh>
             <planeGeometry args={[0.4, 0.6, 16, 16]} />
-            <shaderMaterial
+            <waveShaderMaterial ref={ref} uTexture={image} />
+            {/* <shaderMaterial
                 vertexShader={vertex}
                 fragmentShader={fragment}
                 uniforms={{
@@ -37,7 +39,7 @@ const Wave = () => {
                     uTexture: { value: image },
                 }}
                 ref={ref}
-            />
+            /> */}
         </mesh>
     );
 };
